@@ -11,7 +11,8 @@ public class TestApplication {
 	@Value("${spring.datasource.url}")
 	private static String databaseUrl;
 	public static void main(String[] args) {
-		SpringApplication.run(TestApplication.class, args);
+		System.out.println("INICIALIZANDO===========================");
 		System.out.println("URL de la base de datos: " + databaseUrl);
+		SpringApplication.run(TestApplication.class, args);
 	}
 }
