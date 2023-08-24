@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PruebaServices {
-    @Autowired
-    PruebaRepo pruebaRepo;
+    /*@Autowired
+    PruebaRepo pruebaRepo;*/
     public void prueba(){
         try{
-            Prueba prueba = new Prueba();
+            /*Prueba prueba = new Prueba();
             prueba.setId(1L);
             prueba.setValor("Hollman");
-            pruebaRepo.save(prueba);
+            pruebaRepo.save(prueba);*/
             System.out.println("Se guarda correctamente");
         }catch (Exception e){
             e.printStackTrace();
