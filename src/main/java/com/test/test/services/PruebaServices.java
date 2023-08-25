@@ -44,7 +44,7 @@ public class PruebaServices {
             sb.append("Hora exacta de generación: "+horaGen+"\n\n");
             sb.append("Sucesión de Fibonacci: \n\n"+fibonacci);
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-            simpleMailMessage.setSubject("Sucesion Fibonacci");
+            simpleMailMessage.setSubject("Prueba Tecnica - Hollman Leonardo Pinto Zapata");
             simpleMailMessage.setText(sb.toString());
             simpleMailMessage.setFrom("holeo.pintozapata@gmail.com");
             for(String c:correos){
