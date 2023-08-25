@@ -1,6 +1,7 @@
 package com.test.test.controllers;
 
-import com.test.test.models.Prueba;
+import com.test.test.models.CapsulaCorreos;
+import com.test.test.models.CapsulaFibonacci;
 import com.test.test.services.PruebaServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,31 +14,28 @@ import org.springframework.web.bind.annotation.*;
 public class PruebaController {
     @Autowired
     PruebaServices pruebaServices;
-
-    @GetMapping(value = "/inicial")
-    public ResponseEntity<?> inicial(){
-        pruebaServices.prueba();
-        return null;
-    }//pruebaConsulta21
-
-    @GetMapping(value = "/obtener")
-    public ResponseEntity<?> obtener(@RequestParam Long id){
+    @PostMapping(value = "/enviarSms")
+    public ResponseEntity<?> enviarSms(@RequestHeader("user") String user, @RequestBody CapsulaCorreos entrada){
+        if(!user.equals("admin")){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN.value()).body("Usuario no autorizado");
+        }
         try{
-            var res = pruebaServices.obtener(id);
-            return ResponseEntity.status(HttpStatus.OK.value()).body(res);
+            pruebaServices.enviarSms(entrada);
+            return ResponseEntity.status(HttpStatus.OK.value()).body("Correos enviados correctamente");
         }catch (Exception e){
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body("Error obteniendo por id: "+id);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body("false");
         }
     }
-    @PostMapping(value = "/guardar")
-    public ResponseEntity<?> guardar(@RequestBody Prueba body){
+
+    @PostMapping(value = "/fibonacci")
+    public ResponseEntity<?> fibonacci(@RequestBody CapsulaFibonacci entrada){
         try{
-            var res = pruebaServices.guardar(body);
-            return ResponseEntity.status(HttpStatus.OK.value()).body(res);
+            var sucesion = pruebaServices.sucesionFibonacci(entrada.getCantidad().intValue(),entrada.getSemilla());
+            return ResponseEntity.status(HttpStatus.OK.value()).body(sucesion);
         }catch (Exception e){
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body("Error guardando");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body("Ha ocurrido un error en fibonacci");
         }
     }
 }
